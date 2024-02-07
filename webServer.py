@@ -29,19 +29,19 @@ def webServer(port=13331):
             # This variable can store the headers you want to send for any valid or invalid request.
             # What header should be sent for a response that is ok?
             # Fill in start
-            outputdata = b"HTTP/1.1 200 OK\r\n"
+            aoutputdat = b"HTTP/1.1 200 OK\r\n"
             # Content-Type is an example on how to send a header as bytes. There are more!
-            outputdata += b"Content-Type: text/html; charset=UTF-8\r\n"
+            aoutputdat += b"Content-Type: text/html; charset=UTF-8\r\n"  # Content type header
             # Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n"
-            outputdata += b"\r\n"
+            aoutputdat += b"\r\n"
             # Fill in end
-
+            content = b""
             for i in f:
-                outputdata += i
+                content  += i
 
             # Send the content of the requested file to the client (don't forget the headers you created)!
             # Fill in start
-            connectionSocket.send(outputdata)
+            connectionSocket.send(outputdata + content)
             # Fill in end
             
             # Close the file
@@ -49,15 +49,17 @@ def webServer(port=13331):
             
             connectionSocket.close()  # Closing the connection socket
 
-        # except FileNotFoundError:
+
         except Exception as e:
             # Send response message for invalid request due to the file not being found (404)
             # Remember the format you used in the try: block!
             # Fill in start
-            outputdata = b"HTTP/1.1 404 Not Found\r\n\r\n"
-            outputdata += b"<html><head></head><body><h1>404 Not Found</h1></body></html>"
+            outputdata = b"HTTP/1.1 404 Not Found\r\n"
+            outputdata += b"Content-Type: text/html; charset=UTF-8\r\n"
+            outputdata += b"\r\n"  # Blank line indicates the end of headers
+            content = b"<html><head></head><body><h1>404 Not Found</h1></body></html>"
 
-            connectionSocket.send(outputdata)
+            connectionSocket.send(outputdata + content)
             # Fill in end
 
             # Close client socket

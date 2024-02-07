@@ -29,13 +29,14 @@ def webServer(port=13331):
             # This variable can store the headers you want to send for any valid or invalid request.
             # What header should be sent for a response that is ok?
             # Fill in start
-            aoutputdat = b"HTTP/1.1 200 OK\r\n"
+            outputdat = b"HTTP/1.1 200 OK\r\n"
             # Content-Type is an example on how to send a header as bytes. There are more!
-            aoutputdat += b"Content-Type: text/html; charset=UTF-8\r\n"  # Content type header
+            outputdat += b"Content-Type: text/html; charset=UTF-8\r\n"  # Content type header
             # Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n"
-            aoutputdat += b"\r\n"
+            outputdat += b"\r\n"
             # Fill in end
             content = b""
+
             for i in f:
                 content  += i
 
